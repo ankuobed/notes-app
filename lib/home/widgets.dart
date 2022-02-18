@@ -60,7 +60,6 @@ class Notes extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 300,
                 mainAxisExtent: 150,
-                // childAspectRatio: 1,
                 crossAxisSpacing: 25,
                 mainAxisSpacing: 25),
             itemCount: notes.length,
@@ -72,7 +71,7 @@ class Notes extends StatelessWidget {
               Note note = notes[index];
 
               return NoteItem(note: note);
-            }, // horizontal, this produces 2 rows.
+            },
           );
   }
 }

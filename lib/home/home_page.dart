@@ -19,10 +19,6 @@ class HomePage extends StatelessWidget {
     'Title Descending'
   ];
 
-  // void _selete(String choice) {
-  //   print(choice);
-  // }
-
   @override
   Widget build(BuildContext context) {
     List<Note> notes = Provider.of<NotesProvider>(context).notes;
@@ -75,7 +71,7 @@ class HomePage extends StatelessWidget {
                   break;
               }
             },
-            color: Color.fromARGB(255, 255, 253, 245),
+            color: const Color.fromARGB(255, 255, 253, 245),
             icon: const Icon(
               Icons.sort,
               size: 25,
