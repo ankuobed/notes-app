@@ -3,18 +3,30 @@ import 'package:flutter/services.dart';
 
 import 'package:notes/home/widgets.dart';
 import 'package:notes/models/note.dart';
-import 'package:notes/providers/note.dart';
+import 'package:notes/providers/note_provider.dart';
 import 'package:notes/utils/colors.dart';
 import 'package:notes/utils/responsive.dart';
 import 'package:notes/utils/routes.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final _sortChoices = [
+    'Date Ascending',
+    'Date Descending',
+    'Title Ascending',
+    'Title Descending'
+  ];
+
+  // void _selete(String choice) {
+  //   print(choice);
+  // }
 
   @override
   Widget build(BuildContext context) {
     List<Note> notes = Provider.of<NotesProvider>(context).notes;
+    Function sortNotes = Provider.of<NotesProvider>(context).sortNotes;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +39,7 @@ class HomePage extends StatelessWidget {
             style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500)),
         toolbarHeight: 70,
         actions: [
-          Responsive.isDesktop(context)
+          Responsive.isDesktop(context) && notes.isNotEmpty
               ? Container(
                   height: 45,
                   width: 45,
@@ -46,15 +58,37 @@ class HomePage extends StatelessWidget {
                       )),
                 )
               : Container(),
-          Container(
-            margin: const EdgeInsets.only(right: 5),
-            child: IconButton(
-                splashRadius: 25,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.sort,
-                  size: 25,
-                )),
+          PopupMenuButton(
+            onSelected: (choice) {
+              switch (choice) {
+                case 'Title Ascending':
+                  sortNotes(Sort.titleAscending);
+                  break;
+                case 'Title Descending':
+                  sortNotes(Sort.titleDescending);
+                  break;
+                case 'Date Ascending':
+                  sortNotes(Sort.dateAscending);
+                  break;
+                case 'Date Descending':
+                  sortNotes(Sort.dateDescending);
+                  break;
+              }
+            },
+            color: Color.fromARGB(255, 255, 253, 245),
+            icon: const Icon(
+              Icons.sort,
+              size: 25,
+            ),
+            padding: const EdgeInsets.all(0),
+            itemBuilder: (BuildContext context) {
+              return _sortChoices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
           ),
           Container(
             margin: const EdgeInsets.only(right: 10),
@@ -73,7 +107,7 @@ class HomePage extends StatelessWidget {
       ),
       backgroundColor: MyColors.background,
       body: Notes(notes: notes),
-      floatingActionButton: !Responsive.isDesktop(context)
+      floatingActionButton: !Responsive.isDesktop(context) && notes.isNotEmpty
           ? FloatingActionButton(
               child: const Icon(Icons.add, color: Colors.white),
               onPressed: () => Navigator.pushNamed(context, Routes.createNote),

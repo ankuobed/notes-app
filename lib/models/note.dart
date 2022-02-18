@@ -5,7 +5,11 @@ class Note {
   String id = const Uuid().v4();
   String title;
   String body;
-  String date = DateFormat('dd MMM, hh:mma').format(DateTime.now());
+  // String date = DateFormat('dd MMM, hh:mma').format(DateTime.now());
+  String date = DateTime.now().toString();
+
+  String get dateFormatted =>
+      DateFormat('dd MMM, hh:mma').format(DateTime.parse(date));
 
   Note({required this.title, required this.body});
 

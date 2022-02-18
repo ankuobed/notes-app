@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/models/note.dart';
-import 'package:notes/providers/note.dart';
+import 'package:notes/providers/note_provider.dart';
 import 'package:notes/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +58,7 @@ class NoteDetails extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: MyColors.secondary,
                 )),
-            Text(note.date.toUpperCase(),
+            Text(note.dateFormatted.toUpperCase(),
                 style: TextStyle(
                     fontSize: 14,
                     height: 1.8,

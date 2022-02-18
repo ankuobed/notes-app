@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/models/note.dart';
-import 'package:notes/providers/note.dart';
+import 'package:notes/providers/note_provider.dart';
 import 'package:notes/utils/colors.dart';
 import 'package:notes/utils/routes.dart';
 import 'package:provider/provider.dart';

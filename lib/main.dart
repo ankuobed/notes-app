@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:notes/home/home_page.dart';
 import 'package:notes/notes/create_note_page.dart';
 import 'package:notes/notes/note_details.dart';
-import 'package:notes/providers/note.dart';
+import 'package:notes/providers/note_provider.dart';
 import 'package:notes/utils/colors.dart';
 import 'package:notes/utils/routes.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: Routes.home,
         routes: {
-          Routes.home: (context) => const HomePage(),
+          Routes.home: (context) => HomePage(),
           Routes.createNote: (context) => const CreateNote(),
           Routes.noteDetails: (context) => const NoteDetails(),
         },

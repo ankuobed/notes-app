@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:notes/models/note.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum Sort { dateAscending, dateDescending, titleAscending, titleDescending }
+
 class NotesProvider extends ChangeNotifier {
   List<Note> _notes = [];
 
@@ -58,6 +60,27 @@ class NotesProvider extends ChangeNotifier {
 
     prefs.setString(
         'notes', jsonEncode(_notes.map((note) => note.toMap()).toList()));
+
+    notifyListeners();
+  }
+
+  void sortNotes(Sort s) async {
+    switch (s) {
+      case Sort.titleAscending:
+        _notes.sort((a, b) => b.title.compareTo(a.title));
+        break;
+      case Sort.titleDescending:
+        _notes.sort((a, b) => a.title.compareTo(b.title));
+        break;
+      case Sort.dateAscending:
+        _notes.sort(
+            (a, b) => DateTime.parse(b.date).compareTo(DateTime.parse(a.date)));
+        break;
+      case Sort.dateDescending:
+        _notes.sort(
+            (a, b) => DateTime.parse(a.date).compareTo(DateTime.parse(b.date)));
+        break;
+    }
 
     notifyListeners();
   }

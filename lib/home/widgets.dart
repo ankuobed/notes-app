@@ -13,13 +13,46 @@ class Notes extends StatelessWidget {
     return notes.isEmpty
         ? Center(
             child: Column(
-              children: const [
-                Image(image: AssetImage('assets/images/empty-list.png')),
-                Text("You don't have any notes",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 17,
-                        color: Color.fromARGB(255, 138, 138, 138))),
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Image(
+                  image: AssetImage('assets/images/empty-list.png'),
+                  width: 220,
+                ),
+                const Text(
+                  "You don't have any notes",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                      color: Color.fromARGB(255, 146, 146, 146)),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  "Add a note",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                      color: Color.fromARGB(255, 146, 146, 146)),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, Routes.createNote),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)))),
+                  child:
+                      const Text('Add note', style: TextStyle(fontSize: 16.5)),
+                ),
+                const SizedBox(height: 100),
               ],
             ),
           )
@@ -93,7 +126,7 @@ class NoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                note.date.toUpperCase(),
+                note.dateFormatted.toUpperCase(),
                 style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
